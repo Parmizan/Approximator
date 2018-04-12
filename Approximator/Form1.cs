@@ -16,7 +16,6 @@ namespace Approximator
         private List<Point> PointsXY = new List<Point> { };
         private int movePointPos = -1;
         private bool buildFunction = false;
-        
         public ApproxForm()
         {
             InitializeComponent();
@@ -27,14 +26,17 @@ namespace Approximator
             ApproxChart.ChartAreas[0].AxisX.Maximum = 7;
             ApproxChart.ChartAreas[0].AxisX.Interval = 1;
             ApproxChart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            ApproxChart.ChartAreas[0].AxisX.ArrowStyle = AxisArrowStyle.Triangle;
             //Y-->
             ApproxChart.ChartAreas[0].AxisY.Minimum = 0;
             ApproxChart.ChartAreas[0].AxisY.Maximum = 5;
             ApproxChart.ChartAreas[0].AxisY.Interval = 1;
             ApproxChart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+            ApproxChart.ChartAreas[0].AxisY.ArrowStyle = AxisArrowStyle.Triangle;
             //
-            Series series = new Series("StartSeries");
+            Series series = new Series("Datum line");
             series.ChartType = SeriesChartType.Line;
+            series.Color = Color.Black;
             series.ChartArea = "Approximation functions";
             series.Points.AddXY(0, 0);
             ApproxChart.Series.Add(series);
@@ -84,6 +86,7 @@ namespace Approximator
                     {
                         movePointPos = hit.PointIndex;
                     }
+                    
                 }
             }
         }
@@ -117,6 +120,7 @@ namespace Approximator
                 ApproxChart.Series.Remove(ApproxChart.Series.FindByName("Points"));
                 ApproxChart.Series.Remove(ApproxChart.Series.FindByName("Lagrange"));
                 ApproxChart.Series.Remove(ApproxChart.Series.FindByName("LeastSquares"));
+                ApproxChart.Series.Remove(ApproxChart.Series.FindByName("Extrapolation"));
                 buildFunction = false;
             }
         }
@@ -175,32 +179,36 @@ namespace Approximator
                     }
                     ApproxChart.Series.Add(series);
                 }
-                Extrapolation();
+                DrawExtrapolation();
             }
         }
-        private void Extrapolation()
+        private void DrawExtrapolation()
         {
-            if (ApproxChart.Series.FindByName("Extrapolation") != null)
+            if (PointsXY.Count == 5)
             {
-                ApproxChart.Series.Remove(ApproxChart.Series.FindByName("Extrapolation"));
+                if (ApproxChart.Series.FindByName("Extrapolation") != null)
+                {
+                    ApproxChart.Series.Remove(ApproxChart.Series.FindByName("Extrapolation"));
+                }
+                Series series = new Series("Extrapolation");
+                series.ChartType = SeriesChartType.Point;
+                series.ChartArea = "Approximation functions";
+                if (CheckBLagrange.Checked)
+                {
+                    Lagrange lagrange = new Lagrange(sortPointList(PointsXY));
+                   
+                    series.Points.AddXY(0, lagrange.getResult(0));
+                    series.Points.AddXY(6, lagrange.getResult(6));
+                    
+                }
+                if (CheckBLS.Checked)
+                {
+                    LeastSquares leastSquares = new LeastSquares(sortPointList(PointsXY));
+                    series.Points.AddXY(0, leastSquares.getResult(0));
+                    series.Points.AddXY(6, leastSquares.getResult(6));
+                }
+                ApproxChart.Series.Add(series);
             }
-            Series series = new Series("Extrapolation");
-            series.ChartType = SeriesChartType.Point;
-            series.ChartArea = "Approximation functions";
-            if (CheckBLagrange.Checked)
-            {
-                Lagrange lagrange = new Lagrange(sortPointList(PointsXY));
-                series.Points.AddXY(0, lagrange.getResult(0));
-                series.Points.AddXY(6, lagrange.getResult(6));
-
-            }
-            if (CheckBLS.Checked)
-            {
-                LeastSquares leastSquares = new LeastSquares(sortPointList(PointsXY));
-                series.Points.AddXY(0, leastSquares.getResult(0));
-                series.Points.AddXY(6, leastSquares.getResult(6));
-            }
-            ApproxChart.Series.Add(series);
         }
         //
         private double OXTransform(double OX)
@@ -240,5 +248,7 @@ namespace Approximator
             }
             else return Points;
         }
+
+        
     }
 }

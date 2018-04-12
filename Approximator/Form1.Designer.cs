@@ -28,23 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.ApproxChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.BuildButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.CheckBLS = new System.Windows.Forms.CheckBox();
             this.CheckBLagrange = new System.Windows.Forms.CheckBox();
-            this.LabelLS = new System.Windows.Forms.Label();
-            this.LabelLagrange = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ApproxChart)).BeginInit();
             this.SuspendLayout();
             // 
             // ApproxChart
             // 
+            legend1.Name = "Legend1";
+            this.ApproxChart.Legends.Add(legend1);
             this.ApproxChart.Location = new System.Drawing.Point(0, 0);
             this.ApproxChart.Name = "ApproxChart";
-            series1.Name = "Series1";
-            this.ApproxChart.Series.Add(series1);
             this.ApproxChart.Size = new System.Drawing.Size(825, 482);
             this.ApproxChart.TabIndex = 0;
             this.ApproxChart.Text = "Text";
@@ -69,7 +68,7 @@
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(101, 40);
             this.ClearButton.TabIndex = 3;
-            this.ClearButton.Text = "Очистить точки";
+            this.ClearButton.Text = "Очистить";
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
@@ -86,36 +85,27 @@
             // CheckBLagrange
             // 
             this.CheckBLagrange.AutoSize = true;
-            this.CheckBLagrange.Location = new System.Drawing.Point(831, 64);
+            this.CheckBLagrange.Location = new System.Drawing.Point(831, 35);
             this.CheckBLagrange.Name = "CheckBLagrange";
             this.CheckBLagrange.Size = new System.Drawing.Size(71, 17);
             this.CheckBLagrange.TabIndex = 5;
             this.CheckBLagrange.Text = "Лагранж";
             this.CheckBLagrange.UseVisualStyleBackColor = true;
             // 
-            // LabelLS
+            // label1
             // 
-            this.LabelLS.AutoSize = true;
-            this.LabelLS.Location = new System.Drawing.Point(831, 36);
-            this.LabelLS.Name = "LabelLS";
-            this.LabelLS.Size = new System.Drawing.Size(0, 13);
-            this.LabelLS.TabIndex = 6;
-            // 
-            // LabelLagrange
-            // 
-            this.LabelLagrange.AutoSize = true;
-            this.LabelLagrange.Location = new System.Drawing.Point(831, 88);
-            this.LabelLagrange.Name = "LabelLagrange";
-            this.LabelLagrange.Size = new System.Drawing.Size(0, 13);
-            this.LabelLagrange.TabIndex = 7;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(835, 72);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.TabIndex = 6;
             // 
             // ApproxForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(948, 481);
-            this.Controls.Add(this.LabelLagrange);
-            this.Controls.Add(this.LabelLS);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.CheckBLagrange);
             this.Controls.Add(this.CheckBLS);
             this.Controls.Add(this.ClearButton);
@@ -138,8 +128,7 @@
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.CheckBox CheckBLS;
         private System.Windows.Forms.CheckBox CheckBLagrange;
-        private System.Windows.Forms.Label LabelLS;
-        private System.Windows.Forms.Label LabelLagrange;
+        private System.Windows.Forms.Label label1;
     }
 }
 
