@@ -94,9 +94,17 @@ namespace Approximator
         {
             if (movePointPos > -1 && movePointPos < 6)
             {
-                PointsXY[movePointPos].SetY(ApproxChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y));
-                DrawPoints();
-                DrawFunction();
+                var OY = ApproxChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+                if (OY >= 0 && OY < 5)
+                {
+                    PointsXY[movePointPos].SetY(OY);
+                    DrawPoints();
+                    DrawFunction();
+                }
+                else
+                {
+                    movePointPos = -1;
+                }
             }
         }
         private void ApproxChart_MouseUp(object sender, MouseEventArgs e)
